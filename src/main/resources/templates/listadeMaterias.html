@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	data-th-href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+
+<title>Listado Materias</title>
+</head>
+<body>
+	<div class="container">
+	
+	<div class="row">
+	<div class="card" style="width: 18rem;" data-th-each="materia : ${listadoMateria}">
+  		<img src="..." class="card-img-top" alt="...">
+	  	<div class="card-body">
+			<h5 class="card-title" data-th-text="${materia.nombre}"></h5>
+			<p>Curso</p><p class="card-text" data-th-text="${materia.curso}"></p>
+			<p>Codigo</p><p class="card-text" data-th-text="${materia.codigo}"></p>
+			<p>Horas</p><p class="card-text" data-th-text="${materia.cantidad}"></p>
+			<p>Modalidad</p><p class="card-text" data-th-text="${materia.estado}"></p>
+			<a data-th-href="@{'/borrarMateria/'+${materia.codigo}}" class="btn btn-danger">Borrar</a>					
+			<a data-th-href="@{'/modificarMateria/'+${materia.codigo}}" class="btn btn-warning" >Modificar</a>
+		</div>
+	</div></div>
+	
+	</div>
+<script	data-th-src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

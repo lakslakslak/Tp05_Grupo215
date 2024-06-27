@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	data-th-href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+
+<title>Formulario Materias</title>
+</head>
+<body>
+	<div class="container">
+	<div data-th-replace="~{fragments/header :: navbar}"></div>
+		<h1>FORMULARIO MATERIA</h1>
+		<form data-th-object="${nuevaMateria}" 
+		data-th-action="${band}?@{/modificarMateria}:@{/guardarMateria}" 
+		method="post">
+		
+			<div class="col-sm-6">
+				<label for="codigo" class="form-label">Codigo</label> 
+				<input type="text" class="form-control"	id="codigo" data-th-field="*{codigo}" data-th-readonly=${band}>				
+			</div>
+			
+			<div class="col-sm-6">
+				<label for="nombre" class="form-label">Nombre Materia</label>
+				<input type="text" class="form-control"	id="nombre" data-th-field="*{nombre}">
+			</div>
+			
+			<div class="col-sm-6">
+				<label for="cantidad" class="form-label">Cantidad Horas</label>
+				<input type="number" class="form-control" id="cantidad" data-th-field="*{cantidad}">
+			</div>
+			<div class="col-md-4">
+                    <label class="form-label" for="fcurso">Estado</label>
+                    <select data-th-field="*{estado}" class="form-control" required>
+                        <option data-th-value="true">Virtual</option>
+                        <option data-th-value="false">Presencial</option>
+                        
+                    </select>
+                </div>
+			<div class="col-sm-6">
+				<label for="curso" class="form-label">Curso</label>
+				<input type="text" class="form-control" id="curso" data-th-field="*{curso}">
+			</div>
+			<button type="submit" class="btn btn-primary">Guardar Materia</button>
+		</form>
+		<div data-th-replace="~{fragments/footer :: footer}"></div>
+	</div>
+
+	<script
+		data-th-src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	data-th-href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+
+<title>Formulario Docentes</title>
+</head>
+<body>
+	<div class="container">
+	<div data-th-replace="~{fragments/header :: navbar}"></div>
+		<h1>FORMULARIO DOCENTE</h1>
+		<form data-th-object="${nuevoDocente}" 
+		data-th-action="${band}?@{/modificarDocente}:@{/guardarDocente}" 
+		method="post">
+		
+			<div class="col-sm-6">
+				<label for="legajo" class="form-label">Legajo</label> 
+				<input type="text" class="form-control"	id="legajo" data-th-field="*{legajo}" data-th-readonly=${band}>				
+			</div>
+			
+			<div class="col-sm-6">
+				<label for="nombre" class="form-label">Nombre Docente</label>
+				<input type="text" class="form-control"	id="nombre" data-th-field="*{nombre}">
+			</div>
+			
+			<div class="col-sm-6">
+				<label for="apellido" class="form-label">Apellido Docente</label>
+				<input type="text" class="form-control"	id="apellido" data-th-field="*{apellido}">
+			</div>
+			
+			<div class="col-sm-6">
+  				<label for="email" class="form-label">Correo Electrónico Docente</label>
+    			<input type="email" class="form-control" id="email" data-th-field="*{email}">
+			</div>
+			
+			<div class="col-sm-6">
+    			<label for="telefono" class="form-label">Teléfono</label>
+    			<input type="tel" class="form-control" id="telefono" data-th-field="*{telefono}">
+			</div>
+			
+			<div class="col-md-4">
+                    <label class="form-label" for="fcurso">Estado</label>
+                    <select data-th-field="*{estado}" class="form-control" required>
+                        <option data-th-value="true">True</option>
+                        <option data-th-value="false">False</option>
+                        
+                    </select>
+                </div>
+			
+			<button type="submit" class="btn btn-primary">Guardar docente</button>
+		</form>
+		<div data-th-replace="~{fragments/footer :: footer}"></div>
+	</div>
+
+	<script
+		data-th-src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
