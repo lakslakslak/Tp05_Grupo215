@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Alumnos</title>
+    <link rel="stylesheet" data-th-href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link href="/images/favicon.png" rel="shortcut icon" type="image/vnd.microsoft.icon">
+    <link rel="stylesheet" type="text/css" data-th-href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+	<div class="row"><header data-th-replace="~{fragments/header::header}"></header> </div>
+	
+	<div class="row mt-4 bg-light">
+			<div class="d-flex justify-content-between align-items-center">
+            <h2>Lista de Alumnos</h2>
+            <a class="btn btn-success" type="button" href="/alumno/formularioAlumno">Agregar Alumno</a>
+        </div>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead class="table-dark">
+						<tr>
+							<th scope="col">LU</th>
+							<th scope="col">DNI</th>
+							<th scope="col">Apellido</th>
+							<th scope="col">Nombre</th>
+							<th scope="col">Email</th>
+							<th scope="col">Teléfono</th>
+							<th scope="col">Fecha Nacimiento</th>
+							<th scope="col">Domicilio</th>
+							<th scope="col" class="text-center">Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="alumno : ${alumnos}">
+							<td th:text="${alumno.lu}"></td>
+							<td th:text="${alumno.dni}"></td>
+							<td th:text="${alumno.apellido}"></td>
+							<td th:text="${alumno.nombre}"></td>
+							<td th:text="${alumno.email}"></td>
+							<td th:text="${alumno.telefono}"></td>
+							<td th:text="${alumno.fechaNac}"></td>
+							<td th:text="${alumno.domicilio}"></td>
+							<td class="text-center">
+								<div class="d-flex justify-content-center">
+									<a class="btn btn-warning me-2"
+										th:href="@{/alumno/modificar/}+${alumno.lu}">Editar</a>
+									<a class="btn btn-danger"
+										th:href="@{/alumno/borrarAlumno/}+${alumno.lu}"
+										type="button">Eliminar</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	
+	<div class="row"><footer data-th-replace="~{fragments/footer::footer}"></footer></div>
+</div>
+<script data-th-src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -5,86 +5,49 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.unju.fi.DTO.DocenteDTO;
-import ar.edu.unju.fi.map.DocenteMapDTO;
+import ar.edu.unju.fi.dto.DocenteDTO;
+import ar.edu.unju.fi.mapper.DocenteMapDTO;
 import ar.edu.unju.fi.model.Docente;
 import ar.edu.unju.fi.repository.DocenteRepository;
-import ar.edu.unju.fi.service.DocenteService;
-
+import ar.edu.unju.fi.service.IDocenteService;
 @Service
-public class DocenteServiceImp implements DocenteService{
+public class DocenteServiceImp implements IDocenteService {
 
-	@Autowired
-	DocenteRepository docenteRepository;
-	@Autowired 
-	DocenteMapDTO docenteMapDTO;
-	
-	@Override
-	public void guardarDocente (DocenteDTO docente) {
-		docenteMapDTO.convertirDocenteDTOADocente(docente);
-		docenteRepository.save
-		(docenteMapDTO.convertirDocenteDTOADocente(docente));
-	}
+    @Autowired
+    DocenteRepository docenteRepository;
+    @Autowired
+    DocenteMapDTO docenteMapDTO;
 
-	@Override
-	public List<Docente> mostrarDocentes() {
-		// TODO Auto-generated method stub
-		//return carreraRepository.findAll();
-		return docenteRepository.findDocenteByEstado(true);
-	}
+    @Override
+    public List<DocenteDTO> getListaDocentes() {
+        List<Docente> docentes = docenteRepository.findByEstado(true);
+        return docenteMapDTO.listDocenteToListDocenteDTO(docentes);
+    }
 
-	@Override
-	public void borrarDocente(String legajo) {
-		System.out.println("este es el legajo: "+legajo);
-		// TODO Auto-generated method stub
-		List<Docente> todosLosDocentes = docenteRepository.findAll();
-		for (int i = 0; i < todosLosDocentes.size(); i++) {
-		      Docente docente = todosLosDocentes.get(i);
-		      if (docente.getLegajo().equals(legajo)) {
-		        docente.setEstado(false);
-		        docenteRepository.save(docente);
-		        break;
-		      }
-		    }
-	}
-	
+    @Override
+    public DocenteDTO findDocenteByLegajo(Long legajo) {
+        return docenteMapDTO.toDto(docenteRepository.findById(legajo).get());
+    }
 
+    @Override
+    public void agregarUnDocente(DocenteDTO docenteDTO) {
+        docenteDTO.setEstado(true);
+        docenteRepository.save(docenteMapDTO.toEntity(docenteDTO));
+    }
 
+    @Override
+    public void actualizarDocente(DocenteDTO docenteDTO) {
+        docenteRepository.save(docenteMapDTO.toEntity(docenteDTO));
+    }
 
-	@Override
-	public DocenteDTO buscarDocente(String legajo) {
-		
-		List<Docente> todasLasDocentes = docenteRepository.findAll();
-		for (Docente docente : todasLasDocentes){
-			if (docente.getLegajo().equals(legajo)){
-				return docenteMapDTO.convertirDocenteADocenteDTO(docente);
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public void modificarDocente(DocenteDTO docenteModificada) {
-
-	    DocenteDTO docenteBuscada = buscarDocente(docenteModificada.getLegajo());
-	    if (docenteBuscada != null) {
-	    	
-		List<Docente> todasLasDocentes = docenteRepository.findAll();
-		
-			for (int i = 0 ; i < todasLasDocentes.size() ; i++) {
-				
-				DocenteDTO docente = docenteMapDTO.convertirDocenteADocenteDTO(todasLasDocentes.get(i));
-				
-				if (docente.getLegajo().equals(docenteModificada.getLegajo())) {
-					todasLasDocentes.set(i, docenteMapDTO.convertirDocenteDTOADocente(docenteModificada));
-					break;
-					}
-				}
-			docenteRepository.saveAll(todasLasDocentes);
-		   } 
-	    	else {
-	    		System.out.println("El docente no se ha encontrado ");
-	    }
-	}
-
+    @Override
+    public void eliminarUnDocente(Long legajo) {
+        DocenteDTO docenteDTO = findDocenteByLegajo(legajo);
+        if (docenteDTO != null) {
+            docenteDTO.setEstado(false);
+            docenteRepository.save(docenteMapDTO.toEntity(docenteDTO));
+        } else {
+            throw new RuntimeException("El docente con legajo " + legajo + " no existe.");
+        }
+    }
 }

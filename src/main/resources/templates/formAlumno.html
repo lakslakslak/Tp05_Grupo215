@@ -1,67 +1,63 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	data-th-href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
-
-<title>Formulario Alumnos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Alumno</title>
+    <link rel="stylesheet" data-th-href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link href="/images/favicon.png" rel="shortcut icon" type="image/vnd.microsoft.icon">
+    <!-- Carga de la hoja de estilos personalizada -->
+    <link rel="stylesheet" type="text/css" data-th-href="@{/css/styles.css}">
 </head>
 <body>
-	<div class="container">
-	<div data-th-replace="~{fragments/header :: navbar}"></div>
-		<h1>FORMULARIO ALUMNO</h1>
-		<form data-th-object="${nuevoAlumno}" 
-		data-th-action="${band}?@{/modificarAlumno}:@{/guardarAlumno}" 
-		method="post">
-		
-			<div class="col-sm-6">
-				<label for="dni" class="form-label">Dni</label> 
-				<input type="text" class="form-control"	id="dni" data-th-field="*{dni}" data-th-readonly=${band}>				
-			</div>
-			
-			<div class="col-sm-6">
-				<label for="nombre" class="form-label">Nombre Alumno</label>
-				<input type="text" class="form-control"	id="nombre" data-th-field="*{nombre}">
-			</div>
-			
-			<div class="col-sm-6">
-				<label for="apellido" class="form-label">Apellido Alumno</label>
-				<input type="text" class="form-control"	id="apellido" data-th-field="*{apellido}">
-			</div>
-			
-			<div class="col-sm-6">
-  				<label for="email" class="form-label">Correo Electrónico Alumno</label>
-    			<input type="email" class="form-control" id="email" data-th-field="*{email}">
-			</div>
-			
-			<div class="col-sm-6">
-    			<label for="telefono" class="form-label">Teléfono</label>
-    			<input type="tel" class="form-control" id="telefono" data-th-field="*{telefono}">
-			</div>
-			
-			<div class="col-sm-6">
-    			<label for="fechadenacimiento" class="form-label">Fecha de Nacimiento</label>
-    			<input type="date" class="form-control" id="fechadenacimiento" data-th-field="*{fechadenacimiento}">
-			</div>
-			
-			<div class="col-sm-6">
-    			<label for="domicilio" class="form-label">Domicilio</label>
-    			<input type="text" class="form-control" id="domicilio" data-th-field="*{domicilio}">
-			</div>
-			
-			<div class="col-sm-6">
-    			<label for="lu" class="form-label">Libreta Universitaria</label>
-    			<input type="text" class="form-control" id="lu" data-th-field="*{lu}">
-			</div>
-			
-			<button type="submit" class="btn btn-primary">Guardar Alumno</button>
-		</form>
-		<div data-th-replace="~{fragments/footer :: footer}"></div>
-	</div>
-
-	<script
-		data-th-src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+<div class="container">
+	<div class="row"><header data-th-replace="~{fragments/header::header}"></header> </div>
+	<div class="row mt-5">
+			<h2 th:text="${isEdit} ? 'Modificar Alumno' : 'Formulario de Alumno'"></h2>
+			<form class="row g-3" data-th-action="@{/alumno/guardarAlumno}" data-th-object="${alumno}" method="post" >
+				<div class="form-floating col-md-3">
+					<input type="number" class="form-control" id="dni" name="dni" data-th-field="*{dni}" placeholder="name@example" required>
+					<label for="dni" class="form-label">DNI</label>
+				</div>
+				<div class="form-floating col-md-3">
+					<input type="text" class="form-control" id="nombre" name="nombre" data-th-field="*{nombre}" placeholder="name@example" required>
+					<label for="nombre" class="form-label">Nombre</label>
+				</div>
+				<div class="form-floating col-md-3">
+					<input type="text" class="form-control" id="apellido" name="apellido" data-th-field="*{apellido}" placeholder="name@example" required>
+					<label for="apellido" class="form-label">Apellido</label>
+				</div>
+				<div class="form-floating col-md-3">
+					<input type="email" class="form-control" id="email" name="email" data-th-field="*{email}" placeholder="name@example" required>
+					<label for="email" class="form-label">Email</label>
+				</div>
+				<div class="form-floating col-md-3">
+					<input type="tel" class="form-control" id="telefono" name="telefono" data-th-field="*{telefono}" placeholder="name@example" required>
+					<label for="telefono" class="form-label">Teléfono</label>
+				</div>
+				<div class="form-floating col-md-3">
+					<input type="date" class="form-control" id="fechaNac" name="fechaNac" data-th-field="*{fechaNac}" placeholder="name@example" required>
+					<label for="fechaNac" class="form-label">Fecha de Nacimiento</label>
+				</div>
+				<div class="form-floating col-md-3">
+					<input type="text" class="form-control" id="domicilio" name="domicilio" data-th-field="*{domicilio}" placeholder="name@example" required>
+					<label for="domicilio" class="form-label">Domicilio</label>
+				</div>
+				<div>
+					<input type="hidden" class="form-control" id="lu" name="lu"data-th-field="*{lu}" >
+				</div>
+				<div>
+					<input type="hidden" class="form-control" id="estado" name="estado"data-th-field="*{estado}" >
+				</div>
+				<div class="col-12 d-flex justify-content-center gap-2">
+					<input type="submit" class="btn btn-lg btn-success" th:value="${isEdit} ? 'Modificar' : 'Agregar'">
+					<a class="btn btn-lg btn-secondary" href="/alumno/listaAlumnos">Regresar</a>
+				</div>
+			</form>
+		</div>
+	
+	<div class="row"><footer data-th-replace="~{fragments/footer::footer}"></footer></div>
+</div>
+<script data-th-src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

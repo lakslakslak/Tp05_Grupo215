@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Materias</title>
+    <link rel="stylesheet" data-th-href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link href="/images/favicon.png" rel="shortcut icon" type="image/vnd.microsoft.icon">
+    <!-- Carga de la hoja de estilos personalizada -->
+    <link rel="stylesheet" type="text/css" data-th-href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+	<div class="row"><header data-th-replace="~{fragments/header::header}"></header> </div>
+	
+	<div class="row mt-4 bg-light">
+			<div class="d-flex justify-content-between align-items-center">
+            <h2>Lista de Materias</h2>
+            <a class="btn btn-success" type="button" href="/materia/formularioMateria">Agregar Materia</a>
+        </div>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead class="table-dark">
+						<tr>
+							<th scope="col">Codigo</th>
+							<th scope="col">Nombre</th>
+							<th scope="col">Curso</th>
+							<th scope="col">Duración</th>
+							<th scope="col">Modalidad</th>
+							<th scope="col" class="text-center">Acciones</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="materia : ${materias}">
+							<td th:text="${materia.codigo}"></td>
+							<td th:text="${materia.nombre}"></td>
+							<td th:text="${materia.curso}"></td>
+							<td th:text="${materia.cantidadHoras}"></td>
+							<td th:text="${materia.modalidad}"></td>
+							<td class="text-center">
+								<div class="d-flex justify-content-center">
+									<a class="btn btn-warning me-2"
+										th:href="@{/materia/modificar/}+${materia.codigo}">Editar</a>
+									<a class="btn btn-danger"
+										th:href="@{/materia/borrarMateria/}+${materia.codigo}"
+										type="button">Eliminar</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	
+	<div class="row"><footer data-th-replace="~{fragments/footer::footer}"></footer></div>
+</div>
+<script data-th-src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

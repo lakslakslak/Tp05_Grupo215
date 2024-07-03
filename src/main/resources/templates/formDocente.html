@@ -1,61 +1,56 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	data-th-href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
-
-<title>Formulario Docentes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Docente</title>
+    <link rel="stylesheet" data-th-href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link href="/images/favicon.png" rel="shortcut icon" type="image/vnd.microsoft.icon">
+    <!-- Carga de la hoja de estilos personalizada -->
+    <link rel="stylesheet" type="text/css" data-th-href="@{/css/styles.css}">
 </head>
 <body>
-	<div class="container">
-	<div data-th-replace="~{fragments/header :: navbar}"></div>
-		<h1>FORMULARIO DOCENTE</h1>
-		<form data-th-object="${nuevoDocente}" 
-		data-th-action="${band}?@{/modificarDocente}:@{/guardarDocente}" 
-		method="post">
-		
-			<div class="col-sm-6">
-				<label for="legajo" class="form-label">Legajo</label> 
-				<input type="text" class="form-control"	id="legajo" data-th-field="*{legajo}" data-th-readonly=${band}>				
-			</div>
-			
-			<div class="col-sm-6">
-				<label for="nombre" class="form-label">Nombre Docente</label>
-				<input type="text" class="form-control"	id="nombre" data-th-field="*{nombre}">
-			</div>
-			
-			<div class="col-sm-6">
-				<label for="apellido" class="form-label">Apellido Docente</label>
-				<input type="text" class="form-control"	id="apellido" data-th-field="*{apellido}">
-			</div>
-			
-			<div class="col-sm-6">
-  				<label for="email" class="form-label">Correo Electrónico Docente</label>
-    			<input type="email" class="form-control" id="email" data-th-field="*{email}">
-			</div>
-			
-			<div class="col-sm-6">
-    			<label for="telefono" class="form-label">Teléfono</label>
-    			<input type="tel" class="form-control" id="telefono" data-th-field="*{telefono}">
-			</div>
-			
-			<div class="col-md-4">
-                    <label class="form-label" for="fcurso">Estado</label>
-                    <select data-th-field="*{estado}" class="form-control" required>
-                        <option data-th-value="true">True</option>
-                        <option data-th-value="false">False</option>
-                        
-                    </select>
-                </div>
-			
-			<button type="submit" class="btn btn-primary">Guardar docente</button>
-		</form>
-		<div data-th-replace="~{fragments/footer :: footer}"></div>
-	</div>
-
-	<script
-		data-th-src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+<div class="container">
+	<div class="row"><header data-th-replace="~{fragments/header::header}"></header> </div>
+	<div class="row mt-5">
+			<h2 th:text="${isEdit} ? 'Modificar Docente' : 'Formulario de Docente'"></h2>
+			<form class="row g-3" data-th-action="@{/docente/guardarDocente}" data-th-object="${maestro}" method="post" >
+				<div class="form-floating col-md-3">
+					<input type="text" class="form-control" id="nombre" name="nombre" data-th-field="*{nombre}" placeholder="name@example" th:classappend="${#fields.hasErrors('nombre')} ?'is-invalid' : ''">
+					<label for="nombre" class="form-label">Nombre</label>
+					<p class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
+				</div>
+				<div class="form-floating col-md-3">
+					<input type="text" class="form-control" id="apellido" name="apellido" data-th-field="*{apellido}" placeholder="name@example" th:classappend="${#fields.hasErrors('apellido')} ? 'isinvalid' : ''">
+					<label for="apellido" class="form-label">Apellido</label>
+					<p class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></p>
+				</div>
+				<div class="form-floating col-md-3">
+					<input type="email" class="form-control" id="email" name="email" data-th-field="*{email}" placeholder="name@example" th:classappend="${#fields.hasErrors('email')} ? 'isinvalid' : ''">
+					<label for="email" class="form-label">Email</label>
+					<p class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+				</div>
+				<div class="form-floating col-md-3">
+					<input type="tel" class="form-control" id="telefono" name="telefono" data-th-field="*{telefono}" placeholder="name@example" th:classappend="${#fields.hasErrors('telefono')} ? 'isinvalid' : ''">
+					<label for="telefono" class="form-label">Teléfono</label>
+					<p class="form-text text-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></p>
+				</div>
+				<div>
+					<input type="hidden" class="form-control" id="legajo" name="legajo"data-th-field="*{legajo}" >
+				</div>
+				<div>
+                <input type="hidden" class="form-control" id="estado" name="estado" data-th-field="*{estado}">
+            	</div>
+				
+				<div class="col-12 d-flex justify-content-center gap-2">
+					<input type="submit" class="btn btn-lg btn-success" th:value="${isEdit} ? 'Modificar' : 'Agregar'">
+					<a class="btn btn-lg btn-secondary" href="/docente/listaDocentes">Regresar</a>
+				</div>
+			</form>
+		</div>
+	
+	<div class="row"><footer data-th-replace="~{fragments/footer::footer}"></footer></div>
+</div>
+<script data-th-src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

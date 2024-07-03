@@ -1,56 +1,57 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title th:text="${pageTitle}">Formulario Carreras</title>
 <link rel="stylesheet"
-	data-th-href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
-
-<title>Formulario Carreras</title>
+	th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-	<div class="container">
-	<div data-th-replace="~{fragments/header :: navbar}"></div>
-		<h1>FORMULARIO CARRERA</h1>
-		<form data-th-object="${nuevaCarrera}" 
-		data-th-action="${band}?@{/modificarCarrera}:@{/guardarCarrera}" 
-		method="post">
-		
-			<div class="col-sm-6">
-				<label for="codigo" class="form-label">Codigo</label> 
-				<input type="text" class="form-control"	id="codigo" data-th-field="*{codigo}" data-th-readonly=${band}>				
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container my-5">
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
+				<div class="card shadow"
+					style="background-color: rgba(255, 255, 255, 0.8);">
+					<div class="card-header">
+						<h3 class="card-title mb-0">Formulario Carrera</h3>
+					</div>
+					<div class="card-body">
+						<form th:object="${nuevaCarrera}"
+							th:action="@{${nuevaCarrera.id == null} ? '/carrera/guardarCarrera' : '/carrera/modificarCarrera'}"
+							method="post">
+							<input type="hidden" th:field="*{id}" />
+							<div class="form-floating mb-3">
+								<input type="text" class="form-control" id="codigo"
+									th:field="*{codigo}" placeholder="Código"> <label
+									for="codigo">Código</label>
+							</div>
+							<div class="form-floating mb-3">
+								<input type="text" class="form-control" id="nombre"
+									th:field="*{nombre}" placeholder="Nombre Carrera"> <label
+									for="nombre">Nombre Carrera</label>
+							</div>
+							<div class="form-floating mb-3">
+								<input type="number" class="form-control" id="cantidad"
+									th:field="*{duracion}" placeholder="Cantidad Años"> <label
+									for="cantidad">Cantidad Años</label>
+							</div>
+							<input type="hidden" th:field="*{estado}" value="true" />
+							<div class="d-flex justify-content-between">
+								<a class="btn btn-secondary" href="/carrera/listaCarreras">Regresar</a>
+								<button type="submit" class="btn btn-primary">Guardar
+									Carrera</button>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
-			
-			<div class="col-sm-6">
-				<label for="nombre" class="form-label">Nombre Carrera</label>
-				<input type="text" class="form-control"	id="nombre" data-th-field="*{nombre}">
-			</div>
-			
-			<div class="col-sm-6">
-				<label for="cantidad" class="form-label">Cantidad Años</label>
-				<input type="number" class="form-control" id="cantidad" data-th-field="*{duracion}">
-			</div>
-			<!-- 
-			<div class="col-sm-6">
-				<label for="estado" class="form-label">Cantidad Años</label>
-				<input type="text" class="form-control" id="estado" data-th-field="*{estado}">
-			</div>
-			 -->
-			<div class="col-md-4">
-                    <label class="form-label" for="fcurso">Estado</label>
-                    <select data-th-field="*{estado}" class="form-control" required>
-                        <option data-th-value="true">True</option>
-                        <option data-th-value="false">False</option>
-                        
-                    </select>
-                </div>
-			
-			<button type="submit" class="btn btn-primary">Guardar Carrera</button>
-		</form>
-		<div data-th-replace="~{fragments/footer :: footer}"></div>
+		</div>
 	</div>
 
-	<script
-		data-th-src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

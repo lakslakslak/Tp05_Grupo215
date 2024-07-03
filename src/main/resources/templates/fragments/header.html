@@ -1,70 +1,39 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Header de Pagina</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="/images/favicon.png" rel="shortcut icon" type="image/vnd.microsoft.icon">
+<title>Document</title>
+<link rel="stylesheet" data-th-href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css" data-th-href="@{/CSS/header.css}">
 </head>
-<body>
-		<nav class="navbar navbar-expand-lg bg-body-tertiary" data-th-fragment="navbar">
-		  <div class="container-fluid">
-		    <a class="navbar-brand" href="/principal/index">
-		    <img alt="Logo Facultad de Ingeniería" src="https://fi.unju.edu.ar/images/fi-logo.png">
-		    </a>
-		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		      <span class="navbar-toggler-icon"></span>
-		    </button>
-		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-		        <li class="nav-item">
-		          <a class="nav-link active" aria-current="page" href="/">Inicio</a>
-		        </li>
-		        <li class="nav-item">
-		          <a class="nav-link" href="#">Acerca De</a>
-		        </li>
-		        <li class="nav-item dropdown">
-		          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		            Carreras
-		          </a>
-		          <ul class="dropdown-menu">
-		            <li><a class="dropdown-item" href="#informatica">Informatica</a></li>
-		            <li><a class="dropdown-item" href="#quimica">Quimica</a></li>
-		            <li><a class="dropdown-item" href="#minas">Minas</a></li>
-		            <li class="nav-item">
-		          	<a class="nav-link disabled" aria-disabled="true">No Disponible</a>
-		        	</li>
-		            <li><hr class="dropdown-divider"></li>
-		            <li><a class="dropdown-item" href="#">Otras</a></li>
-		          </ul>
-		          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		            Formularios
-		          </a>
-		          <ul class="dropdown-menu">
-		            <li><a class="dropdown-item" href="/formularioAlumno">Alumnos</a></li>
-		            <li><a class="dropdown-item" href="/formularioDocente">Docentes</a></li>
-		            <li><a class="dropdown-item" href="/formularioCarrera">Carreras</a></li>
-		            <li><a class="dropdown-item" href="/formularioMateria">Materias</a></li>
-		            <li class="nav-item">
-		          	<a class="nav-link disabled" aria-disabled="true">No Disponible</a>
-		        	</li>
-		            <li><hr class="dropdown-divider"></li>
-		            <li><a class="dropdown-item" href="#">Otras</a></li>
-		          </ul>
-		        </li>
-				<li class="nav-item">
-		          <a class="nav-link" href="#noticias">Noticias</a>
-		        </li>
-				<li class="nav-item">
-		          <a class="nav-link" href="#contacto">Contacto</a>
-		        </li>		        
-		      </ul>
-		      <form class="d-flex" role="search">
-		        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-		        <button class="btn btn-outline-success" type="submit">Buscar</button>
-		      </form>
-		    </div>
-		  </div>
-		</nav>
-			<h1 class="main-title">Facultad de Ingeniería</h1>
+<body style="margin: 0; padding: 0;">
+    <header class="header-style" th:fragment="header">
+    <h1>Facultad de Ingeniería</h1>
+    <p class="university-motto">Le damos la Bienvenida a la Universidad Nacional de Jujuuy</p>
+    <nav class="navbar">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon">&#9776;</span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Carreras</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Materias</a></li>
+					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle navbar-hover" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestion</a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="/docente/listaDocentes">Docentes</a></li>
+							<li><a class="dropdown-item" href="/alumno/listaAlumnos">Alumnos</a></li>
+							<li><a class="dropdown-item" href="/materia/listadoMaterias">Materia</a></li>
+							<li><a class="dropdown-item" href="/carrera/listaCarreras">Carrera</a></li>							
+						</ul>
+					</li>
+				</ul>
+            </div>
+           </div>
+        </nav>
+    </header>
 </body>
 </html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Docentes</title>
+    <link rel="stylesheet" data-th-href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link href="/images/favicon.png" rel="shortcut icon" type="image/vnd.microsoft.icon">
+    <!-- Carga de la hoja de estilos personalizada -->
+    <link rel="stylesheet" type="text/css" data-th-href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+	<div class="row"><header data-th-replace="~{fragments/header::header}"></header> </div>
+	
+	<div class="row mt-4 bg-light">
+			<div class="d-flex justify-content-between align-items-center">
+            <h2>Lista de Docentes</h2>
+            <a class="btn btn-success" type="button" href="/docente/formularioDocente">Agregar Docente</a>
+        </div>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead class="table-dark">
+						<tr>
+							<th scope="col">Legajo</th>
+							<th scope="col">Apellido</th>
+							<th scope="col">Nombre</th>
+							<th scope="col">Email</th>
+							<th scope="col">Teléfono</th>
+							<th scope="col" class="text-center">Acciones</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="docente : ${docentes}">
+							<td th:text="${docente.legajo}"></td>
+							<td th:text="${docente.apellido}"></td>
+							<td th:text="${docente.nombre}"></td>
+							<td th:text="${docente.email}"></td>
+							<td th:text="${docente.telefono}"></td>
+							<td class="text-center">
+								<div class="d-flex justify-content-center">
+									<a class="btn btn-warning me-2"
+										th:href="@{/docente/modificar/}+${docente.legajo}">Editar</a>
+									<a class="btn btn-danger"
+										th:href="@{/docente/borrarDocente/}+${docente.legajo}"
+										type="button">Eliminar</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	
+	<div class="row"><footer data-th-replace="~{fragments/footer::footer}"></footer></div>
+</div>
+<script data-th-src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

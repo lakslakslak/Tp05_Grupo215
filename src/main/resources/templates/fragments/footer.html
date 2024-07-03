@@ -1,51 +1,23 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Footer de Pagina</title>
-</head>
-<body>
-	<div class="row" data-th-fragment="footer">
-			
-			<div class="pie-pagina col-4">
-			<h3 class="tit-footer">FACULTAD DE INGENIERIA - UNju</h3>
-				<ul class="ulist">
-					<li>Italo Palanca Nº10
-					<li>San Salvador de Jujuy, Jujuy - Argentina
-					<li> <a href="#">info@fi.unju.edu.ar</a>
-				</ul>
-			<h3 class="tit-footer">Aviso Legal</h3>
-				<ul class="ulist">
-					<li>Terminos Y Condiciones
-					<li>Condiciones del Uso del Correo Electrónico
-				</ul>
-			</div>
-			
-			
-			<div class="pie-pagina col-4" >
-				<h3 class="tit-footer">Redes Sociales</h3>
-					<ul class = "ulist">
-					<li><a href = "https://www.instagram.com/java_programming_basics/" class="nav-link">Instagram</a>
-					<li><a href = "https://www.facebook.com/?locale=es_LA" class="nav-link">Facebook</a>
-					<li><a href = "https://twitter.com/?lang=es" class="nav-link">Twitter</a>
-					</ul>
-			</div>
-			
-			<div class="pie-pagina col-4" >
-				<h3 class="tit-footer">Enlaces de Interés</h3>
-					<ul class = "ulist-1">
-					<li><a href = "" class="nav-link">Teléfonos</a>
-					<li><a href = "" class="nav-link">Modelos de Notas</a>
-					<li><a href = "" class="nav-link">SIU Guaranír</a>
-					<li><a href = "" class="nav-link">Campus FI</a>
-					<li><a href = "" class="nav-link">Protocolos de Bioseguridad</a>
-					<li><a href = "" class="nav-link">Doctorado en Ingeniería Industrial</a>
-					</ul>
-			</div>
-			<div class="copyright">
-				<p>&copy; 2024 Elias Jarma. Todos los derechos reservados.</p>
-			</div>
-		</div>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<link rel="stylesheet" data-th-href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css" data-th-href="@{/CSS/footer.css}">
+<body style="margin: 0; padding: 0;">
+    <footer class="footer-style" th:fragment="footer">
+    <div class="footer-info">
+        <p>© 2015-2024 | UNJu Virtual - Educación a Distancia</p>
+        <div class="footer-links">
+            <a href="http://www.unju.edu.ar" target="_blank">Visítanos: http://www.unju.edu.ar</a>
+            <a href="mailto:virtual@unju.edu.ar">Escríbenos: virtual@unju.edu.ar</a>
+            <a href="tel:0388154708223">Llámanos: 0388 - 154708223</a>
+        </div>
+            <p>©Trabajo Practico Grupal N°215: Cachi, Vladimir y Vedia Luciana</p>
+            <p>©Escuela de Minas "Dr. Horacio Carrillo" 2024</p>
+        </div>
+    </footer>
 </body>
 </html>

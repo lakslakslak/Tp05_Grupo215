@@ -5,81 +5,53 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.unju.fi.DTO.MateriaDTO;
-import ar.edu.unju.fi.map.MateriaMAPDTO;
+import ar.edu.unju.fi.dto.MateriaDTO;
+import ar.edu.unju.fi.mapper.MateriaMapDTO;
 import ar.edu.unju.fi.model.Materia;
-import ar.edu.unju.fi.repository.*;
-import ar.edu.unju.fi.service.MateriaService;
-
+import ar.edu.unju.fi.repository.MateriaRepository;
+import ar.edu.unju.fi.service.IMateriaService;
 @Service
-public class MateriaServiceImp implements MateriaService{
+public class MateriaServiceImp implements IMateriaService {
 
-	@Autowired
-	MateriaRepository materiaRepository;
-	
-	@Autowired
-	MateriaMAPDTO materiaMapDTO;
-	
+    @Autowired
+    MateriaRepository materiaRepository;
+    
+    @Autowired
+    MateriaMapDTO materiaMapDTO;
+
 	@Override
-	public void guardarMateria(MateriaDTO materiaDTO) {
-		materiaRepository.save
-		(materiaMapDTO.convertirMateriaDTOAMateria(materiaDTO));
+	public List<MateriaDTO> getListaMaterias() {
+		 List<Materia> materias = materiaRepository.findByEstado(true);
+	     return materiaMapDTO.listMateriaToListMateriaDTO(materias);
+	}
+	
+
+	@Override
+	public MateriaDTO findMateriaByCodigo(Long codigo) {
+		return materiaMapDTO.toDto(materiaRepository.findById(codigo).get());
 	}
 
 	@Override
-	public List<Materia> mostrarMateria() {
-		return materiaRepository.findMateriaByEstado(true);
+	public void agregarUnaMateria(MateriaDTO materiaDTO) {
+		materiaDTO.setEstado(true);
+        materiaRepository.save(materiaMapDTO.toEntity(materiaDTO));
+		
 	}
 
 	@Override
-    public void borrarMateria(String codigo) {
-        System.out.println("este es el codigo: "+codigo);
-        List<Materia> todasLasMaterias = materiaRepository.findAll();
-        for (int i = 0; i < todasLasMaterias.size(); i++) {
-        	Materia materia = todasLasMaterias.get(i);
-              if (materia.getCodigo().equals(codigo)) {
-                materia.setEstado(false);
-                materiaRepository.save(materia);
-                break;
-              }
-            }
-    }
+	public void actualizarMateria(MateriaDTO materiaDTO) {
+		 materiaRepository.save(materiaMapDTO.toEntity(materiaDTO));
+	}
 
 	@Override
-    public void modificarMateria(MateriaDTO materiaModificada) {
+	public void eliminarUnaMateria(Long codigo) {
+		 MateriaDTO materiaDTO = findMateriaByCodigo(codigo);
+	        if (materiaDTO != null) {
+	            materiaDTO.setEstado(false);
+	            materiaRepository.save(materiaMapDTO.toEntity(materiaDTO));
+	        } else {
+	            throw new RuntimeException("La materia con código " + codigo + " no existe.");
+	        }
+	}
 
-		MateriaDTO materiaBuscada = buscarMateria(materiaModificada.getCodigo());
-        if (materiaBuscada != null) {
-
-        List<Materia> todasLasMaterias = materiaRepository.findAll();
-
-            for (int i = 0 ; i < todasLasMaterias.size() ; i++) {
-
-            	MateriaDTO materia = materiaMapDTO.convertirMateriaAMateriaDTO(todasLasMaterias.get(i));
-
-                if (materia.getCodigo().equals(materiaModificada.getCodigo())) {
-                    todasLasMaterias.set(i, materiaMapDTO.convertirMateriaDTOAMateria(materiaModificada));
-                    break;
-                    }
-                }
-            materiaRepository.saveAll(todasLasMaterias);
-           } 
-            else {
-                System.out.println("La carrera no se ha encontrado ");
-        }
-}
-
-    @Override
-    public MateriaDTO buscarMateria(String codigo) {
-
-        List<Materia> todasLasMaterias = materiaRepository.findAll();
-
-        for (Materia materia : todasLasMaterias){
-            if (materia.getCodigo().equals(codigo)){
-                return materiaMapDTO.convertirMateriaAMateriaDTO(materia);
-            }
-        }
-        return null;
-    }
-	
 }
